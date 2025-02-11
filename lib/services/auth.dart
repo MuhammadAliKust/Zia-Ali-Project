@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:zia_ali_project_api/models/user.dart';
 
 class AuthServices {
+  String baseUrl = "https://todo-nu-plum-19.vercel.app";
+
   ///Register
   Future<RegisterModel> registerUser(
       {required String name,
@@ -13,7 +15,7 @@ class AuthServices {
       required String password}) async {
     try {
       http.Response response = await http.post(
-          Uri.parse("{{TODO_URL}}/users/register"),
+          Uri.parse("$baseUrl/users/register"),
           headers: {'Content-Type': 'application/json'},
           body:
               jsonEncode({"name": name, "email": email, "password": password}));
@@ -33,7 +35,7 @@ class AuthServices {
       {required String email, required String password}) async {
     try {
       http.Response response = await http.post(
-          Uri.parse("{{TODO_URL}}/users/login"),
+          Uri.parse("$baseUrl/users/login"),
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode({"email": email, "password": password}));
 
@@ -51,7 +53,7 @@ class AuthServices {
   Future<UserModel> getProfile(String token) async {
     try {
       http.Response response = await http.get(
-          Uri.parse("{{TODO_URL}}/users/profile"),
+          Uri.parse("$baseUrl/users/profile"),
           headers: {'Authorization': token});
 
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -69,7 +71,7 @@ class AuthServices {
       {required String token, required String name}) async {
     try {
       http.Response response = await http.put(
-          Uri.parse("{{TODO_URL}}/users/profile"),
+          Uri.parse("$baseUrl/users/profile"),
           headers: {'Authorization': token, 'Content-Type': 'application/json'},
           body: jsonEncode({'name': name}));
 
