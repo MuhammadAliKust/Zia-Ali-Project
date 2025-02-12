@@ -5,12 +5,14 @@ import 'package:zia_ali_project_api/models/task.dart';
 import 'package:zia_ali_project_api/models/task_list.dart';
 
 class TaskServices {
+
+  String baseUrl = "https://todo-nu-plum-19.vercel.app";
   ///Create Task
   Future<TaskModel> createTask(
       {required String token, required String description}) async {
     try {
       http.Response response = await http.post(
-          Uri.parse("{{TODO_URL}}/todos/add"),
+          Uri.parse("$baseUrl/todos/add"),
           headers: {'Authorization': token, 'Content-Type': 'application/json'},
           body: jsonEncode({"description": description}));
 
@@ -31,7 +33,7 @@ class TaskServices {
       required String taskID}) async {
     try {
       http.Response response = await http.patch(
-          Uri.parse("{{TODO_URL}}/todos/update/$taskID"),
+          Uri.parse("$baseUrl/todos/update/$taskID"),
           headers: {'Authorization': token, 'Content-Type': 'application/json'},
           body: jsonEncode({"description": description}));
 
@@ -51,7 +53,7 @@ class TaskServices {
       {required String token, required String taskID}) async {
     try {
       http.Response response = await http.delete(
-        Uri.parse("{{TODO_URL}}/todos/delete/$taskID"),
+        Uri.parse("$baseUrl/todos/delete/$taskID"),
         headers: {'Authorization': token},
       );
 
@@ -70,7 +72,7 @@ class TaskServices {
   Future<TaskListModel> getAllTasks(String token) async {
     try {
       http.Response response = await http.get(
-        Uri.parse("{{TODO_URL}}/todos/get"),
+        Uri.parse("$baseUrl/todos/get"),
         headers: {'Authorization': token},
       );
 
@@ -89,7 +91,7 @@ class TaskServices {
   Future<TaskListModel> getCompletedTasks(String token) async {
     try {
       http.Response response = await http.get(
-        Uri.parse("{{TODO_URL}}/todos/completed"),
+        Uri.parse("$baseUrl/todos/completed"),
         headers: {'Authorization': token},
       );
 
@@ -108,7 +110,7 @@ class TaskServices {
   Future<TaskListModel> getInCompletedTasks(String token) async {
     try {
       http.Response response = await http.get(
-        Uri.parse("{{TODO_URL}}/todos/incomplete"),
+        Uri.parse("$baseUrl/todos/incomplete"),
         headers: {'Authorization': token},
       );
 
@@ -128,7 +130,7 @@ class TaskServices {
       {required String token, required String searchKey}) async {
     try {
       http.Response response = await http.get(
-        Uri.parse("{{TODO_URL}}/todos/search?keywords=$searchKey"),
+        Uri.parse("$baseUrl/todos/search?keywords=$searchKey"),
         headers: {'Authorization': token},
       );
 
@@ -150,7 +152,7 @@ class TaskServices {
     try {
       http.Response response = await http.get(
         Uri.parse(
-            "{{TODO_URL}}/todos/filter?startDate=$startDate&endDate=$endDate"),
+            "$baseUrl/todos/filter?startDate=$startDate&endDate=$endDate"),
         headers: {'Authorization': token},
       );
 
